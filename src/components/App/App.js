@@ -2,6 +2,7 @@ import {
   BrowserRouter,
   Routes,
   Route,
+  
 } from "react-router-dom";
 import './App.css';
 import Home from '../pages/Home/Home';
@@ -10,6 +11,7 @@ import SavedMovies from '../pages/SavedMovies/SavedMovies';
 import Profile from '../pages/Profile/Profile';
 import Login from '../pages/Login/Login';
 import Register from '../pages/Register/Register';
+import PageNotFound from '../pages/PageNotFound/PageNotFound';
 
 
 
@@ -23,6 +25,7 @@ function App() {
       <Route path="/profile" element={<Profile/>}/>
       <Route path="/signin" element={<Login/>}/>
       <Route path="/signup" element={<Register/>}/>
+      <Route path="*" element={<PageNotFound/>}/>
         
        
        

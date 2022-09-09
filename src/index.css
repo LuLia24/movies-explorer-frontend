@@ -1,7 +1,8 @@
 @import url(../src/vendors/normalize.css);
 @import url(../src/vendors/fonts/fonts.css);
 
-@import url(./components/Header/Header.css);
+/* @import url(./components/Header/Header.css);
+@import url(./components/Promo/Promo.css); */
 
 .wraper {
   height: 100vh;

@@ -56,7 +56,7 @@
   color: #fff;
   background-color: #000000;
   border-radius: 3px;
-  padding: 5px 12px;
+  padding: 7px 12px;
   text-align: center;
   cursor: pointer;
 }
@@ -71,13 +71,38 @@
   display: none;
 }
 
-/* для экранов 1024 и больше */
-@media screen and (min-width: 1024px) {
+@media screen and (min-width: 768px) {
   .header {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
+    padding: 18px 30px;
+  }
+
+  .header__auth-links {
+    gap: 30px;
+  }
+
+  .header__auth-link-signup {
+    width: 77px;
+    font-size: 12px;
+  }
+
+  .header__auth-link-signin {
+    width: 76px;
+    font-size: 12px;
+    padding: 8px 20px;
+  }
+
+  .header__burger {
+    padding: 0 7px 0 0;
+  }
+  .header__burger-bar {
+    width: 28px;
+    height: 3px;
+    margin-top: 7px;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .header {
     padding: 18px 70px;
   }
 
@@ -93,7 +118,6 @@
   .header__auth-link-signin {
     width: 76px;
     font-size: 12px;
-    line-height: 16px;
     padding: 8px 20px;
   }
 
@@ -113,6 +137,7 @@
     flex-direction: row;
     list-style: none;
     gap: 16px;
+    margin: 0;
   }
   .header__nav-item {
     font-family: 'Inter';
