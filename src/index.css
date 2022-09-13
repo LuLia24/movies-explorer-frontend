@@ -4,7 +4,7 @@
 /* @import url(./components/Header/Header.css);
 @import url(./components/Promo/Promo.css); */
 
-.wraper {
+#root {
   height: 100vh;
   display: flex;
   flex-direction: column;

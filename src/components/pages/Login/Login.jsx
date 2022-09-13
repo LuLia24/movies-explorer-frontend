@@ -1,6 +1,7 @@
 import React from 'react';
 import './Login.css';
 import logo from '../../../images/logo.svg';
+import { Link } from 'react-router-dom';
 
 const Login = () => {
   return (
@@ -11,15 +12,21 @@ const Login = () => {
       </div>
       <fieldset className="login__forms">
         <label className="login__forms-label ">E-mail</label>
-        <input className="login__forms-input" type="email" required />
+        <input className="login__forms-input input-email " type="email" required />
+        <span class="login__forms-input-error  ">Что-то пошло не так...</span>
         <label className="login__forms-label login__forms-label-password">Пароль</label>
-        <input className="login__forms-input" type="password" required />
+        <input className="login__forms-input " type="password" required />
+        <span class="login__forms-input-error  ">Что-то пошло не так...</span>
       </fieldset>
       <div className="login__button-items">
         <button className=" login__button-enter ">Войти</button>
         <div className="login__button-wrapper">
           <label className="login__button-text">Ещё не зарегистрированы?</label>
-          <button className=" login__button-reg">Регистрация</button>
+          <button className=" login__button-reg">
+            <Link to="/signup" className="register__button-link">
+              Регистрация
+            </Link>
+          </button>
         </div>
       </div>
     </section>

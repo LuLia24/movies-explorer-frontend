@@ -13,6 +13,13 @@ const Footer = () => {
           <a href="https://github.com/" className="footer__link" target="_blanck">
             Github
           </a>
+          <a
+            href="https://facebook.com/"
+            className="footer__link  footer__link_hidden"
+            target="_blanck"
+          >
+            Facebook
+          </a>
         </div>
         <p className="footer__link-year">©2022</p>
       </div>

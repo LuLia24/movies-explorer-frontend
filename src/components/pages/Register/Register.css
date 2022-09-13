@@ -1,0 +1,227 @@
+.register {
+  padding: 56px 30px 0 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.register__header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.register__header-title {
+  margin: 0;
+  padding: 50px 0 0 0;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 29px;
+  text-align: center;
+  color: #000000;
+}
+.register__forms {
+  margin: 0;
+  width: 260px;
+  padding: 80px 0 0 0;
+  border: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.register__forms-label {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 12px;
+  color: #a0a0a0;
+}
+.register__forms-label-email {
+  font-weight: 500;
+}
+
+.register__forms-input {
+  border: 0;
+  border-bottom: 1px solid #e8e8e8;
+  padding: 7px 0px 8px 0px;
+  outline: none;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  color: #000000;
+}
+
+/* .register__forms-input:focus {
+  border: none;
+} */
+
+.register__button-items {
+  padding: 216px 0 0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.register__button-wrapper {
+  display: flex;
+  flex-direction: row;
+  padding: 14px 0 0 0;
+  justify-content: center;
+}
+
+.register__button-enter {
+  width: 260px;
+  background-color: #000000;
+  border: #000000;
+  border-radius: 3px;
+  padding: 15px 0 15px 0;
+  color: #ffffff;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 15px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.register__button-enter:hover {
+  opacity: 0.2;
+}
+
+.register__button-text {
+  margin: 0;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 15px;
+  text-align: center;
+  color: #a0a0a0;
+}
+
+.register__button-reg {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 15px;
+  text-align: center;
+  color: #000000;
+  border: 0;
+  background-color: transparent;
+  cursor: pointer;
+  padding: 0 0 0 8px;
+}
+.register__button-reg:hover {
+  opacity: 0.2;
+}
+
+.register__button-link {
+  text-decoration: none;
+  color: #000000;
+}
+
+.register__button-enter-link {
+  text-decoration: none;
+  color: #ffffff;
+}
+
+.input-password:invalid {
+  color: #ff4062;
+}
+.register__forms-input-error {
+  visibility: hidden;
+  height: 24px;
+  padding: 6px 0 0 0;
+  box-sizing: border-box;
+}
+
+.register__forms-input-error_active {
+  visibility: visible;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 12px;
+  color: #ff4062;
+}
+
+@media screen and (min-width: 768px) {
+  .register {
+    padding: 232px 186px 0 186px;
+    align-items: flex-start;
+  }
+
+  .register__header {
+    align-items: flex-start;
+  }
+
+  .register__header-title {
+    padding: 40px 0 0 0;
+  }
+
+  .register__forms {
+    padding: 40px 0 0 0;
+    width: 396px;
+  }
+
+  .register__button-items {
+    padding: 126px 0 0 0;
+    font-size: 14px;
+    line-height: 17px;
+  }
+
+  .register__button-wrapper {
+    padding: 16px 0 0 0;
+  }
+
+  .register__button-enter {
+    width: 396px;
+    font-size: 14px;
+    line-height: 17px;
+  }
+
+  .register__button-text {
+    font-size: 14px;
+    line-height: 17px;
+  }
+
+  .register__button-reg {
+    font-size: 14px;
+    line-height: 17px;
+    padding: 0 0 0 6px;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .register {
+    padding: 70px 442px 0 442px;
+    align-items: flex-start;
+  }
+
+  .register__header {
+    align-items: flex-start;
+  }
+
+  .register__forms {
+    width: 396px;
+  }
+
+  .register__button-wrapper {
+    padding: 16px 0 0 0;
+  }
+
+  .register__button-enter {
+    padding: 13px 0 15px 0;
+  }
+
+  .register__button-reg {
+    padding: 0 0 0 6px;
+  }
+}

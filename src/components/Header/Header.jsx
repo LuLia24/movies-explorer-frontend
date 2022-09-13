@@ -1,14 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Header.css';
 import logo from '../../images/logo.svg';
 import { Link } from 'react-router-dom';
+import Navigation from '../Navigation/Navigation';
 
 const Header = () => {
   const isLogined = true;
+  const [isModalOpened, setIsModalOpened] = useState(false);
+
+  const handelModalOpen = () => {
+    setIsModalOpened(true);
+  };
+  const handelModalClose = () => {
+    setIsModalOpened(false);
+  };
 
   const burger = (
     <>
-      <div className="header__burger">
+      <div className="header__burger" onClick={handelModalOpen}>
         <span className="header__burger-bar"></span>
         <span className="header__burger-bar"></span>
         <span className="header__burger-bar"></span>
@@ -27,7 +36,7 @@ const Header = () => {
             </Link>
           </li>
         </ul>
-        <Link to="/profile" className="header__header__nav-profile">
+        <Link to="/profile" className="header__nav-profile ">
           Аккаунт
         </Link>
       </nav>
@@ -52,10 +61,11 @@ const Header = () => {
   );
 
   return (
-    <header className="header">
+    <header className={`header`}>
       <img className="header__logo" src={logo} alt="логотип" />
 
       {isLogined ? burger : authorization}
+      {isModalOpened && <Navigation handelModalClose={handelModalClose} />}
     </header>
   );
 };
