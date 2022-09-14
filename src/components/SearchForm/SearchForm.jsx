@@ -9,7 +9,7 @@ const SearchForm = () => {
       <div className="search__wrapper">
         <form className="search__form">
           <img className="search__form-logo" src={lens} alt="увелиительное стекло" />
-          <input className="search__input" type="search" placeholder="Фильм" />
+          <input className="search__input" required type="search" placeholder="Фильм" />
           <button className="search__button" type="submit">
             <img className="search__button-img" src={find} alt="кнопка поиска" />
           </button>

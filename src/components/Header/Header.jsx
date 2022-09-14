@@ -10,9 +10,11 @@ const Header = () => {
 
   const handelModalOpen = () => {
     setIsModalOpened(true);
+    document.body.style.overflow = 'hidden';
   };
   const handelModalClose = () => {
     setIsModalOpened(false);
+    document.body.style.overflow = 'visible';
   };
 
   const burger = (
@@ -62,8 +64,9 @@ const Header = () => {
 
   return (
     <header className={`header`}>
-      <img className="header__logo" src={logo} alt="логотип" />
-
+      <Link to="/">
+        <img className="header__logo" src={logo} alt="логотип" />
+      </Link>
       {isLogined ? burger : authorization}
       {isModalOpened && <Navigation handelModalClose={handelModalClose} />}
     </header>

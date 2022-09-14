@@ -10,7 +10,7 @@
 .techs__main-title {
   margin: 0;
   padding: 0 0 28px 0;
-  font-family: 'Inter';
+  font-family: 'Inter', sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 18px;
@@ -32,7 +32,7 @@
 }
 .techs__container-title {
   margin: 0;
-  font-family: 'Inter';
+  font-family: 'Inter', sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 30px;
@@ -43,7 +43,7 @@
 .techs__container-text {
   margin: 0;
   padding: 24px 0 0 0;
-  font-family: 'Inter';
+  font-family: 'Inter', sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 11px;
@@ -69,7 +69,7 @@
 
 .techs__grid-item {
   padding: 21px 0 21px 0;
-  font-family: 'Inter';
+  font-family: 'Inter', sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 12px;

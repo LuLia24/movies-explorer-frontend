@@ -7,7 +7,9 @@ const Login = () => {
   return (
     <section className="login">
       <div className="login__header ">
-        <img className="login__header-logo logo" src={logo} alt="лого" />
+        <Link to="/">
+          <img className="login__header-logo logo" src={logo} alt="лого" />
+        </Link>
         <h1 className="login__header-title">Рады видеть!</h1>
       </div>
       <fieldset className="login__forms">

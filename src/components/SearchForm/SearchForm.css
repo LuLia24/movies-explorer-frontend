@@ -20,7 +20,7 @@
   padding: 25px 0 25px 19px;
   flex-grow: 1;
   border-radius: 9px;
-  font-family: 'Inter';
+  font-family: 'Inter', sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
@@ -28,7 +28,8 @@
   color: #a0a0a0;
 }
 .search__input:focus {
-  outline: none;
+  outline: 1px dotted #2be080;
+
   color: #000000;
 }
 
@@ -42,6 +43,9 @@
   cursor: pointer;
   padding: 0 0 0 46px;
 }
+.search__button-img:hover {
+  opacity: 0.2;
+}
 
 .search__checkbox-items {
   padding: 45px 0px 40px 0;
@@ -53,7 +57,7 @@
 }
 
 .search__checkbox-lable {
-  font-family: 'Inter';
+  font-family: 'Inter', sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 11px;
@@ -61,7 +65,7 @@
   color: #000000;
 }
 .search__checkbox-lable-text {
-  font-family: 'Inter';
+  font-family: 'Inter', sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 11px;

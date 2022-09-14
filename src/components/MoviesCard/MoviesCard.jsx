@@ -12,11 +12,13 @@ const MoviesCard = (props) => {
           <p className="moviescard__info-title">{props.card.title}</p>
           <p className="moviescard__info-duration">{props.card.duration}</p>
         </div>
-        <img
-          className="moviescard__status-logo"
-          src={props.isPageSaved ? deleteIcon : props.card.isSaved ? saved : unsaved}
-          alt="лого"
-        />
+        <button className="moviescard__status-button">
+          <img
+            className="moviescard__status-logo"
+            src={props.isPageSaved ? deleteIcon : props.card.isSaved ? saved : unsaved}
+            alt="лого"
+          />
+        </button>
       </div>
       <img className="moviescard__card" src={props.card.poster} alt={props.card.title} />
     </section>

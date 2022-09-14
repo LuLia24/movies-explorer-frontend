@@ -14,7 +14,7 @@
 .register__header-title {
   margin: 0;
   padding: 50px 0 0 0;
-  font-family: 'Inter';
+  font-family: 'Inter', sans-serif;
   font-style: normal;
   font-weight: 500;
   font-size: 24px;
@@ -32,7 +32,7 @@
 }
 
 .register__forms-label {
-  font-family: 'Inter';
+  font-family: 'Inter', sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 10px;
@@ -48,7 +48,7 @@
   border-bottom: 1px solid #e8e8e8;
   padding: 7px 0px 8px 0px;
   outline: none;
-  font-family: 'Inter';
+  font-family: 'Inter', sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
@@ -81,7 +81,7 @@
   border-radius: 3px;
   padding: 15px 0 15px 0;
   color: #ffffff;
-  font-family: 'Inter';
+  font-family: 'Inter', sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 12px;
@@ -96,7 +96,7 @@
 
 .register__button-text {
   margin: 0;
-  font-family: 'Inter';
+  font-family: 'Inter', sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 12px;
@@ -106,7 +106,7 @@
 }
 
 .register__button-reg {
-  font-family: 'Inter';
+  font-family: 'Inter', sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 12px;
@@ -144,7 +144,7 @@
 
 .register__forms-input-error_active {
   visibility: visible;
-  font-family: 'Inter';
+  font-family: 'Inter', sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 10px;

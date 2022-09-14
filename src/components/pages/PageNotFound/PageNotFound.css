@@ -19,7 +19,7 @@
 
 .pagenotfound__title {
   margin: 0;
-  font-family: 'Inter';
+  font-family: 'Inter', sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 80px;
@@ -30,7 +30,7 @@
 .pagenotfound__text {
   margin: 0;
   padding: 10px 0 0 0;
-  font-family: 'Inter';
+  font-family: 'Inter', sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 12px;
@@ -40,7 +40,7 @@
 }
 
 .pagenotfound__button {
-  font-family: 'Inter';
+  font-family: 'Inter', sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 12px;
