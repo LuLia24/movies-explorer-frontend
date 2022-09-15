@@ -1,0 +1,216 @@
+.search {
+  padding: 81px 10px 10px 10px;
+}
+
+.search__form {
+  background-color: #f9f9f9;
+  border-radius: 9px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border: 0;
+}
+.search__form-logo {
+  display: none;
+}
+
+.search__input {
+  background-color: #f9f9f9;
+  border: 0;
+  padding: 25px 0 25px 19px;
+  flex-grow: 1;
+  border-radius: 9px;
+  font-family: 'Inter', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  color: #a0a0a0;
+}
+.search__input:focus {
+  outline: 1px dotted #2be080;
+
+  color: #000000;
+}
+
+.search__button {
+  border: 0;
+  background-color: transparent;
+  padding: 0 19px 0 0;
+}
+
+.search__button-img {
+  cursor: pointer;
+  padding: 0 0 0 46px;
+}
+.search__button-img:hover {
+  opacity: 0.2;
+}
+
+.search__checkbox-items {
+  padding: 45px 0px 40px 0;
+  border-bottom: 1px solid #e8e8e8;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 16px;
+}
+
+.search__checkbox-lable {
+  font-family: 'Inter', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 18px;
+  color: #000000;
+}
+.search__checkbox-lable-text {
+  font-family: 'Inter', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 18px;
+  color: #000000;
+}
+
+.search__wrapper-line {
+  display: none;
+}
+
+.search__checkbox-lable {
+  margin: 0;
+}
+#highload1 {
+  display: none;
+}
+#highload1 + .search__checkbox-lable,
+#highload1 + .search__checkbox-lable::before,
+#highload1 + .search__checkbox-lable::after {
+  transition: all 0.3s;
+}
+#highload1 + .search__checkbox-lable {
+  display: inline-block;
+  position: relative;
+  width: 36px;
+  height: 20px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+#highload1 + .search__checkbox-lable::after {
+  border-radius: 50%;
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 3px;
+  width: 16px;
+  height: 16px;
+  background-color: white;
+}
+
+#highload1:checked + .search__checkbox-lable::after {
+  left: 17px;
+  background-color: #f7f7f7;
+}
+
+#highload1 + .search__checkbox-lable {
+  background-color: #ccc;
+}
+#highload1:checked + .search__checkbox-lable {
+  background-color: #2be080;
+}
+#highload1:checked + .search__checkbox-lable::before {
+  color: #fff;
+}
+
+@media screen and (min-width: 768px) {
+  .search {
+    padding: 80px 30px 0 30px;
+  }
+
+  .search__wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: #f9f9f9;
+    border-radius: 9px;
+    /* padding: 0 0 0 19px; */
+    padding: 16px 0px 16px 20px;
+  }
+  .search__form {
+    flex-grow: 1;
+  }
+
+  .search__form-logo {
+    width: 34px;
+    display: block;
+  }
+
+  .search__input {
+    padding: 0 0 0 10px;
+    font-size: 18px;
+    line-height: 20px;
+  }
+
+  .search__checkbox-items {
+    padding: 8px 20px 8px 15px;
+    gap: 19px;
+    border-bottom: 0;
+    border-left: 1px solid #e8e8e8;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    background-color: #f9f9f9;
+  }
+
+  .search__checkbox-lable {
+    font-size: 18px;
+    line-height: 20px;
+  }
+
+  .search__checkbox-lable-text {
+    font-weight: 400;
+    font-size: 13px;
+  }
+  .search__wrapper-line {
+    display: block;
+    border: 0;
+    height: 1px;
+    margin: 109px 0 0 0;
+    background-color: #e8e8e8;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .search {
+    padding: 70px 70px 0 70px;
+  }
+
+  .search__wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: #f9f9f9;
+    border-radius: 9px;
+    padding: 0 0 0 19px;
+  }
+  .search__button {
+    padding: 0 30px 0 0;
+  }
+
+  .search__checkbox-items {
+    padding: 27px 30px 21px 29px;
+  }
+
+  .search__checkbox-lable {
+    font-size: 18px;
+    line-height: 20px;
+  }
+
+  .search__checkbox-lable-text {
+    font-weight: 400;
+    font-size: 13px;
+  }
+  .search__wrapper-line {
+    margin: 69px 0 0 0;
+  }
+}
