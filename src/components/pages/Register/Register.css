@@ -56,10 +56,6 @@
   color: #000000;
 }
 
-/* .register__forms-input:focus {
-  border: none;
-} */
-
 .register__button-items {
   padding: 216px 0 0 0;
   display: flex;
@@ -92,6 +88,13 @@
 
 .register__button-enter:hover {
   opacity: 0.2;
+}
+
+.register__button-enter_disabled {
+  background-color: #a0a0a0;
+}
+.register__button-enter_disabled:hover {
+  opacity: 1;
 }
 
 .register__button-text {
@@ -127,18 +130,13 @@
   color: #000000;
 }
 
-.register__button-enter-link {
-  text-decoration: none;
-  color: #ffffff;
-}
-
 .input-password:invalid {
   color: #ff4062;
 }
 .register__forms-input-error {
   visibility: hidden;
   height: 24px;
-  padding: 6px 0 0 0;
+  padding: 0 0 0 0;
   box-sizing: border-box;
 }
 

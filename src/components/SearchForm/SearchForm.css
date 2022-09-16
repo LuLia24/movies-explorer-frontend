@@ -1,5 +1,11 @@
 .search {
   padding: 81px 10px 10px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.search__wrapper {
+  width: 100%;
 }
 
 .search__form {
@@ -39,6 +45,10 @@
   padding: 0 19px 0 0;
 }
 
+.search__button_disable {
+  opacity: 0.2;
+}
+
 .search__button-img {
   cursor: pointer;
   padding: 0 0 0 46px;
@@ -75,6 +85,24 @@
 
 .search__wrapper-line {
   display: none;
+  width: 100%;
+}
+
+.search__forms-input-error {
+  visibility: hidden;
+  height: 24px;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.search__forms-input-error_active {
+  visibility: visible;
+  font-family: 'Inter', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 12px;
+  color: #ff4062;
 }
 
 .search__checkbox-lable {

@@ -123,11 +123,17 @@
 .login__button-reg:hover {
   opacity: 0.2;
 }
+.login__button-enter_disabled {
+  background-color: #a0a0a0;
+}
+.login__button-enter_disabled:hover {
+  opacity: 1;
+}
 
 .login__forms-input-error {
   visibility: hidden;
   height: 24px;
-  padding: 6px 0 0 0;
+  padding: 0;
   box-sizing: border-box;
 }
 
