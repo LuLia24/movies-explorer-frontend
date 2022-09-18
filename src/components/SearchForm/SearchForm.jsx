@@ -1,18 +1,16 @@
 import React, { useState, useEffect, useContext, useCallback } from 'react';
+import { useLocation } from 'react-router-dom';
 import './SearchForm.css';
 import find from '../../images/find.svg';
 import lens from '../../images/lens.svg';
-import { useFormWithValidation } from '../../utils/hooks';
 import moviesApi from '../../utils/MoviesApi';
 import CurrentUserContext from '../../contexts/CurrentUserContext';
+import { getAllMovies } from '../../utils/MainApi';
 
 const SearchForm = () => {
-  // const { values, handleChange, errors, isValid, resetForm, setValues } = useFormWithValidation();
-
-  const [searchInputText, setSearchInputText] = useState(' ');
-
+  const [searchInputText, setSearchInputText] = useState('');
   const handleChange = (e) => {
-    setSearchInputText(e.target.value);
+    setSearchInputText(e.target.value.trim());
   };
 
   const context = useContext(CurrentUserContext);
@@ -21,11 +19,11 @@ const SearchForm = () => {
     setAllCards,
     setFiltredCards,
     allCards,
-    setCurrentUser,
-    setIsLoggined,
+
     setIsPreloaderActive,
-    setIsInfoTooltipPopupOpen,
   } = context;
+  const route = useLocation().pathname;
+  const isPageSaved = route === '/saved-movies' ? true : false;
 
   // search input
   const [isSearchEmpty, setIsSearchEmpty] = useState(true);
@@ -45,22 +43,23 @@ const SearchForm = () => {
   };
 
   // cards
-  const formatCards = (card) => {
+  const formatCards = (card, _id) => {
     return {
       country: card.country ? card.country : 'default',
       director: card.director ? card.director : 'default',
       duration: card.duration ? card.duration : 0,
       year: card.year ? card.year : 'default',
       description: card.description ? card.description : 'default',
-      image: card.image ? `${moviesApi._baseUrl}${card.image.url}` : 'default',
+      image: card.image ? `https://api.nomoreparties.co${card.image.url}` : 'default',
       trailerLink: card.trailerLink ? card.trailerLink : 'default',
       thumbnail: card.image
-        ? `${moviesApi._baseUrl}${card.image.formats.thumbnail.url}`
+        ? `https://api.nomoreparties.co${card.image.formats.thumbnail.url}`
         : 'default',
       owner: currentUser._id ? currentUser._id : 'default',
       movieId: card.id ? card.id : 0,
       nameRU: card.nameRU ? card.nameRU : 'default',
       nameEN: card.nameEN ? card.nameEN : 'default',
+      _id: _id,
     };
   };
 
@@ -93,12 +92,10 @@ const SearchForm = () => {
         let filteredByText = cardArr.filter((el) => {
           return filterText(el, searchText);
         });
-        console.log('filteredByText', filteredByText);
 
         if (isChecked) {
           const filteredByDuration = filteredByText.filter(filterByDuration);
           result = filteredByDuration;
-          console.log('filteredByDuration', filteredByDuration);
         } else {
           result = filteredByText;
         }
@@ -113,49 +110,57 @@ const SearchForm = () => {
     [isChecked, filterText]
   );
 
+  // get all cards
   const handleSearchClick = (e) => {
     e.preventDefault();
-    setIsPreloaderActive(true);
+    if (!isPageSaved) {
+      setIsPreloaderActive(true);
 
-    moviesApi
-      .getInitialCards()
-      .then((res) => {
-        const formatedCards = res.map((el) => {
-          return formatCards(el);
+      Promise.all([moviesApi.getInitialCards(), getAllMovies()])
+        .then(([initialCard, savedCards]) => {
+          const formatedCards = initialCard.map((el) => {
+            const arrSaved = savedCards.filter((savedItem) => {
+              return savedItem.movieId === el.id;
+            });
+
+            const _id = arrSaved.length ? arrSaved[0]._id : false;
+
+            return formatCards(el, _id);
+          });
+
+          setAllCards(formatedCards);
+
+          const filteredCards = filterAll(formatedCards, searchInputText);
+          setFiltredCards(filteredCards);
+        })
+        .catch((err) => {
+          console.log('err', err);
+        })
+        .finally(() => {
+          setIsPreloaderActive(false);
         });
-
-        setAllCards(formatedCards);
-        console.log('formatedCards', formatedCards);
-
-        const filteredCards = filterAll(formatedCards, searchInputText);
-        setFiltredCards(filteredCards);
-        console.log('filteredCards Loading', filteredCards);
-      })
-      .catch((err) => {
-        console.log('err', err);
-      })
-      .finally(() => {
-        setIsPreloaderActive(false);
-      });
+    }
   };
 
   useEffect(() => {
-    if (searchInputText) {
-      console.log('if value.search');
+    if (searchInputText && allCards.length) {
       const filteredCards = filterAll(allCards, searchInputText);
       setFiltredCards(filteredCards);
-      console.log('filteredCards values.search', filteredCards);
     } else if (localStorage.getItem('searchText') || localStorage.getItem('isChecked')) {
       const searchTextFromStorage = JSON.parse(localStorage.getItem('searchText'));
-      console.log('searchTextFromStorage', searchTextFromStorage);
       if (searchTextFromStorage) {
         setSearchInputText(searchTextFromStorage);
       }
-      setIsChecked(JSON.parse(localStorage.getItem('setIsChecked')));
 
-      // const filteredCards = filterAll(allCards, searchTextFromStorage);
-      // setFiltredCards(filteredCards);
-      // console.log('filteredCards localStorage', filteredCards);
+      const checkboxFromStorage = JSON.parse(localStorage.getItem('isChecked'));
+      if (checkboxFromStorage) {
+        setIsChecked(checkboxFromStorage);
+      }
+
+      const cardsFromStorage = JSON.parse(localStorage.getItem('filteredCards'));
+      if (cardsFromStorage) {
+        setFiltredCards(cardsFromStorage);
+      }
     }
   }, [searchInputText, isChecked, allCards, filterAll, setFiltredCards]);
 

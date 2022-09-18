@@ -65,31 +65,101 @@ export const veryficationToken = (token) => {
     });
 };
 
-export const updateUser = (email,  name) => {
-    let jwt
-    if (localStorage.getItem('token')){
-       
-         jwt = localStorage.getItem('token')
+export const updateUser = (email, name) => {
+  let jwt;
+  if (localStorage.getItem('token')) {
+    jwt = localStorage.getItem('token');
+  }
+
+  return fetch(`${BASE_URL}/users/me/`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      authorization: `Bearer ${jwt}`,
+    },
+    body: JSON.stringify({ email, name }),
+  }).then((res) => {
+    if (res.ok) {
+      return res.json();
+    } else {
+      return Promise.reject(`Ошибка, статус: ${res.status}`);
     }
+  });
+};
 
-    return fetch(`${BASE_URL}/users/me/`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-        authorization: `Bearer ${jwt}`
-      },
-      body: JSON.stringify({ email, name }),
-    })
-      .then((res) => {
-        
-       
-          if (res.ok) {
-      
-            return res.json();
-          } else {
-            return Promise.reject(`Ошибка, статус: ${res.status}`)
-          }
-       
-      })
+export const addFavoritesCards = (card) => {
+  let jwt;
+  if (localStorage.getItem('token')) {
+    jwt = localStorage.getItem('token');
+  }
 
-  };
+  return fetch(`${BASE_URL}/movies`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      authorization: `Bearer ${jwt}`,
+    },
+    body: JSON.stringify({
+      country: card.country,
+      director: card.director,
+      duration: card.duration,
+      year: card.year,
+      description: card.description,
+      image: card.image,
+      trailerLink: card.trailerLink,
+      thumbnail: card.image,
+      movieId: card.movieId,
+      nameRU: card.nameRU,
+      nameEN: card.nameEN,
+    }),
+  }).then((res) => {
+    if (res.ok) {
+      return res.json();
+    } else {
+      return Promise.reject(`Ошибка, статус: ${res.status}`);
+    }
+  });
+};
+
+export const removeFavoritesCards = (_id) => {
+  let jwt;
+  if (localStorage.getItem('token')) {
+    jwt = localStorage.getItem('token');
+  }
+
+  return fetch(`${BASE_URL}/movies/${_id}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      authorization: `Bearer ${jwt}`,
+    },
+  }).then((res) => {
+    if (res.ok) {
+      return res.json();
+    } else {
+      return Promise.reject(`Ошибка, статус: ${res.status}`);
+    }
+  });
+};
+
+
+export const getAllMovies = () => {
+  let jwt;
+  if (localStorage.getItem('token')) {
+    jwt = localStorage.getItem('token');
+  }
+
+  return fetch(`${BASE_URL}/movies`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      authorization: `Bearer ${jwt}`,
+    }
+  }).then((res) => {
+    if (res.ok) {
+      return res.json();
+    } else {
+      return Promise.reject(`Ошибка, статус: ${res.status}`);
+    }
+  });
+};

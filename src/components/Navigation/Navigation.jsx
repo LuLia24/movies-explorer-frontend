@@ -15,22 +15,30 @@ const Navigation = (props) => {
         />
         <ul className="navigation__menu">
           <li className="navigation__menu-items">
-            <Link to="/" className="navigation__menu-item">
+            <Link onClick={props.handelModalClose} to="/" className="navigation__menu-item">
               Главная
             </Link>
           </li>
           <li className="navigation__menu-items">
-            <Link to="/movies" className="navigation__menu-item">
+            <Link onClick={props.handelModalClose} to="/movies" className="navigation__menu-item">
               Фильмы
             </Link>
           </li>
           <li className="navigation__menu-items">
-            <Link to="/saved-movies" className="navigation__menu-item">
+            <Link
+              onClick={props.handelModalClose}
+              to="/saved-movies"
+              className="navigation__menu-item"
+            >
               Сохранённые фильмы
             </Link>
           </li>
         </ul>
-        <Link to="/profile" className=" navigation__account-button">
+        <Link
+          onClick={props.handelModalClose}
+          to="/profile"
+          className=" navigation__account-button"
+        >
           Аккаунт
         </Link>
       </div>

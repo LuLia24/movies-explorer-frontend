@@ -66,6 +66,7 @@ const Register = () => {
               defaultValue={values.username}
               minLength="2"
               maxLength="30"
+              pattern="[A-Za-zА-Яа-яЁё\s-]*"
             />
             <span
               className={`register__forms-input-error ${

@@ -54,3 +54,23 @@
 .moviescard__status-logo:hover {
   opacity: 0.2;
 }
+
+.moviescard__img {
+  width: 300px;
+  height: 168px;
+  object-fit: cover;
+}
+
+@media screen and (min-width: 768px) {
+  .moviescard__img {
+    width: 339px;
+    height: 190px;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .moviescard__img {
+    width: 364px;
+    height: 203px;
+  }
+}

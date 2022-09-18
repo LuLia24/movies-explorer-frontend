@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import './Profile.css';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Header from '../../Header/Header';
 import CurrentUserContext from '../../../contexts/CurrentUserContext';
 import { useFormWithValidation } from '../../../utils/hooks';
@@ -45,6 +45,9 @@ const Profile = () => {
     setCurrentUser({});
     setIsLoggined(false);
     localStorage.removeItem('token');
+    localStorage.removeItem('searchText');
+    localStorage.removeItem('isChecked');
+    localStorage.removeItem('filteredCards');
     navigate('/');
   };
 
