@@ -12,8 +12,7 @@ const Register = () => {
   // const [isPreloaderActive, setIsPreloaderActive] = useState(false);
   const { values, handleChange, errors, isValid, resetForm } = useFormWithValidation();
   const context = React.useContext(CurrentUserContext);
-  const { setCurrentUser, setIsLoggined, setIsPreloaderActive, setIsInfoTooltipPopupOpen } =
-    context;
+  const { setCurrentUser, setIsLoggined, setIsPreloaderActive, setIsInfoTooltipPopupOpen } = context;
 
   const handleSubmit = () => {
     setIsPreloaderActive(true);
@@ -69,9 +68,7 @@ const Register = () => {
               pattern="[A-Za-zА-Яа-яЁё\s-]*"
             />
             <span
-              className={`register__forms-input-error ${
-                errors.username ? 'register__forms-input-error_active' : ''
-              }`}
+              className={`register__forms-input-error ${errors.username ? 'register__forms-input-error_active' : ''}`}
             >
               {errors.username}
             </span>
@@ -85,11 +82,7 @@ const Register = () => {
               onChange={handleChange}
               defaultValue={values.email}
             />
-            <span
-              className={`register__forms-input-error ${
-                errors.email ? 'register__forms-input-error_active' : ''
-              }`}
-            >
+            <span className={`register__forms-input-error ${errors.email ? 'register__forms-input-error_active' : ''}`}>
               {errors.email}
             </span>
 
@@ -103,9 +96,7 @@ const Register = () => {
               defaultValue={values.password}
             />
             <span
-              className={`register__forms-input-error ${
-                errors.password ? 'register__forms-input-error_active' : ''
-              }`}
+              className={`register__forms-input-error ${errors.password ? 'register__forms-input-error_active' : ''}`}
             >
               {errors.password}
             </span>
@@ -113,9 +104,7 @@ const Register = () => {
           <div className="register__button-items">
             <button
               type="button"
-              className={`register__button-enter ${
-                isValid ? '' : 'register__button-enter_disabled'
-              }`}
+              className={`register__button-enter ${isValid ? '' : 'register__button-enter_disabled'}`}
               disabled={!isValid}
               onClick={handleSubmit}
             >

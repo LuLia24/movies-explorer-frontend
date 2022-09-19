@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 import './Profile.css';
-import { useNavigate } from 'react-router-dom';
 import Header from '../../Header/Header';
 import CurrentUserContext from '../../../contexts/CurrentUserContext';
 import { useFormWithValidation } from '../../../utils/hooks';
@@ -9,11 +8,9 @@ import { updateUser } from '../../../utils/MainApi';
 import { useState } from 'react';
 
 const Profile = () => {
-  const navigate = useNavigate();
   const context = useContext(CurrentUserContext);
   const { values, handleChange, errors, isValid, setValues } = useFormWithValidation();
-  const { currentUser, setCurrentUser, setIsSuccess, setIsLoggined, setIsInfoTooltipPopupOpen } =
-    context;
+  const { currentUser, setCurrentUser, setIsSuccess, setIsInfoTooltipPopupOpen, handelLogout } = context;
 
   const [isSubmit, setIsSubmit] = useState(true);
   const isEdited = currentUser.name !== values.username || currentUser.email !== values.email;
@@ -41,16 +38,6 @@ const Profile = () => {
       });
   };
 
-  const handelLogout = () => {
-    setCurrentUser({});
-    setIsLoggined(false);
-    localStorage.removeItem('token');
-    localStorage.removeItem('searchText');
-    localStorage.removeItem('isChecked');
-    localStorage.removeItem('filteredCards');
-    navigate('/');
-  };
-
   return (
     <section className="profile">
       <Header />
@@ -75,9 +62,7 @@ const Profile = () => {
               />
             </div>
             <span
-              className={`profile__forms-input-error ${
-                errors.username ? 'profile__forms-input-error_active' : ''
-              }`}
+              className={`profile__forms-input-error ${errors.username ? 'profile__forms-input-error_active' : ''}`}
             >
               {errors.username}
             </span>
@@ -93,11 +78,7 @@ const Profile = () => {
                 defaultValue={values.email}
               />
             </div>
-            <span
-              className={`profile__forms-input-error ${
-                errors.email ? 'profile__forms-input-error_active' : ''
-              }`}
-            >
+            <span className={`profile__forms-input-error ${errors.email ? 'profile__forms-input-error_active' : ''}`}>
               {errors.email}
             </span>
           </form>

@@ -9,17 +9,12 @@ export const register = (email, password, name) => {
     body: JSON.stringify({ email, password, name }),
   })
     .then((res) => {
-      try {
-        if (res.ok) {
-          return res.json();
-        }
-      } catch (e) {
-        return e;
+      if (res.ok) {
+        return res.json();
+      } else {
+        return Promise.reject(`Ошибка, статус: ${res.status}`);
       }
     })
-    .then((res) => {
-      return res;
-    });
 };
 
 export const login = (email, password) => {
@@ -31,17 +26,12 @@ export const login = (email, password) => {
     body: JSON.stringify({ email, password }),
   })
     .then((res) => {
-      try {
-        if (res.ok) {
-          return res.json();
-        }
-      } catch (e) {
-        return e;
+      if (res.ok) {
+        return res.json();
+      } else {
+        return Promise.reject(`Ошибка, статус: ${res.status}`);
       }
     })
-    .then((res) => {
-      return res;
-    });
 };
 
 export const veryficationToken = (token) => {
@@ -52,17 +42,12 @@ export const veryficationToken = (token) => {
     },
   })
     .then((res) => {
-      try {
-        if (res.ok) {
-          return res.json();
-        }
-      } catch (e) {
-        return e;
+      if (res.ok) {
+        return res.json();
+      } else {
+        return Promise.reject(`Ошибка, статус: ${res.status}`);
       }
     })
-    .then((res) => {
-      return res;
-    });
 };
 
 export const updateUser = (email, name) => {

@@ -11,8 +11,7 @@ const Login = () => {
   const navigate = useNavigate();
   const { values, handleChange, errors, isValid, resetForm } = useFormWithValidation();
   const context = useContext(CurrentUserContext);
-  const { setCurrentUser, setIsLoggined, setIsPreloaderActive, setIsInfoTooltipPopupOpen } =
-    context;
+  const { setCurrentUser, setIsLoggined, setIsPreloaderActive, setIsInfoTooltipPopupOpen } = context;
 
   const handleSubmit = () => {
     setIsPreloaderActive(true);
@@ -61,11 +60,7 @@ const Login = () => {
               onChange={handleChange}
               defaultValue={values.email}
             />
-            <span
-              className={`login__forms-input-error ${
-                errors.email ? 'login__forms-input-error_active' : ''
-              }`}
-            >
+            <span className={`login__forms-input-error ${errors.email ? 'login__forms-input-error_active' : ''}`}>
               {errors.email}
             </span>
 
@@ -79,11 +74,7 @@ const Login = () => {
               onChange={handleChange}
               defaultValue={values.password}
             />
-            <span
-              className={`login__forms-input-error ${
-                errors.password ? 'login__forms-input-error_active' : ''
-              }`}
-            >
+            <span className={`login__forms-input-error ${errors.password ? 'login__forms-input-error_active' : ''}`}>
               {errors.password}
             </span>
           </form>

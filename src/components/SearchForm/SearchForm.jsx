@@ -8,60 +8,62 @@ import CurrentUserContext from '../../contexts/CurrentUserContext';
 import { getAllMovies } from '../../utils/MainApi';
 
 const SearchForm = () => {
-  const [searchInputText, setSearchInputText] = useState('');
-  const handleChange = (e) => {
-    setSearchInputText(e.target.value.trim());
-  };
-
   const context = useContext(CurrentUserContext);
   const {
     currentUser,
     setAllCards,
     setFiltredCards,
     allCards,
-
+    setSearchInputText,
     setIsPreloaderActive,
+    setIsChecked,
+    setIsLoadError,
+    savedCards,
+    setSavedCards,
   } = context;
   const route = useLocation().pathname;
   const isPageSaved = route === '/saved-movies' ? true : false;
 
+  const handleChangeSearchInputText = (e) => {
+    setSearchInputText(e.target.value);
+  };
+
   // search input
   const [isSearchEmpty, setIsSearchEmpty] = useState(true);
   useEffect(() => {
-    if (searchInputText) {
+    if (context.searchInputText) {
       setIsSearchEmpty(false);
     } else {
       setIsSearchEmpty(true);
     }
-  }, [searchInputText]);
+  }, [context.searchInputText]);
 
   // checkbox
-  const [isChecked, setIsChecked] = useState(false);
-
-  const handleCheckbox = () => {
+  const handleChangeCheckbox = () => {
     setIsChecked((prev) => !prev);
   };
 
   // cards
-  const formatCards = (card, _id) => {
-    return {
-      country: card.country ? card.country : 'default',
-      director: card.director ? card.director : 'default',
-      duration: card.duration ? card.duration : 0,
-      year: card.year ? card.year : 'default',
-      description: card.description ? card.description : 'default',
-      image: card.image ? `https://api.nomoreparties.co${card.image.url}` : 'default',
-      trailerLink: card.trailerLink ? card.trailerLink : 'default',
-      thumbnail: card.image
-        ? `https://api.nomoreparties.co${card.image.formats.thumbnail.url}`
-        : 'default',
-      owner: currentUser._id ? currentUser._id : 'default',
-      movieId: card.id ? card.id : 0,
-      nameRU: card.nameRU ? card.nameRU : 'default',
-      nameEN: card.nameEN ? card.nameEN : 'default',
-      _id: _id,
-    };
-  };
+  const formatCards = useCallback(
+    (card, _id) => {
+      return {
+        country: card.country ? card.country : 'default',
+        director: card.director ? card.director : 'default',
+        duration: card.duration ? card.duration : 0,
+        year: card.year ? card.year : 'default',
+        description: card.description ? card.description : 'default',
+        image: card.image ? `https://api.nomoreparties.co${card.image.url}` : 'default',
+        trailerLink: card.trailerLink ? card.trailerLink : 'default',
+        thumbnail: card.image ? `https://api.nomoreparties.co${card.image.formats.thumbnail.url}` : 'default',
+        owner: currentUser._id ? currentUser._id : 'default',
+        movieId: card.id ? card.id : 0,
+        nameRU: card.nameRU ? card.nameRU : 'default',
+        nameEN: card.nameEN ? card.nameEN : 'default',
+        _id: _id,
+      };
+    },
+    [currentUser._id],
+  );
 
   const filterText = useCallback((card, searchText) => {
     let result = false;
@@ -86,83 +88,154 @@ const SearchForm = () => {
   };
 
   const filterAll = useCallback(
-    (cardArr, searchText) => {
-      if (cardArr.length && searchText !== ' ') {
-        let result = [];
-        let filteredByText = cardArr.filter((el) => {
-          return filterText(el, searchText);
-        });
+    (cardArr, searchText, isShortsChecked) => {
+      if (cardArr.length) {
+        let result = cardArr;
 
-        if (isChecked) {
-          const filteredByDuration = filteredByText.filter(filterByDuration);
-          result = filteredByDuration;
-        } else {
-          result = filteredByText;
+        if (searchText) {
+          result = cardArr.filter((el) => {
+            return filterText(el, searchText);
+          });
         }
 
-        localStorage.setItem('searchText', JSON.stringify(searchText));
-        localStorage.setItem('isChecked', JSON.stringify(isChecked));
-        localStorage.setItem('filteredCards', JSON.stringify(result));
+        if (isShortsChecked) {
+          result = result.filter(filterByDuration);
+        }
+
+        if (!isPageSaved) {
+          localStorage.setItem('searchText', JSON.stringify(searchText));
+          localStorage.setItem('isChecked', JSON.stringify(context.isChecked));
+          localStorage.setItem('filteredCards', JSON.stringify(result));
+        }
 
         return result;
       }
     },
-    [isChecked, filterText]
+    [context.isChecked, filterText, isPageSaved],
   );
+
+  // handel movies page
 
   // get all cards
   const handleSearchClick = (e) => {
     e.preventDefault();
-    if (!isPageSaved) {
-      setIsPreloaderActive(true);
 
-      Promise.all([moviesApi.getInitialCards(), getAllMovies()])
-        .then(([initialCard, savedCards]) => {
-          const formatedCards = initialCard.map((el) => {
-            const arrSaved = savedCards.filter((savedItem) => {
-              return savedItem.movieId === el.id;
+    if (!isPageSaved) {
+      if (allCards.length) {
+        const filteredCards = filterAll(allCards, context.searchInputText, context.isChecked);
+        setFiltredCards(filteredCards);
+      } else {
+        setIsPreloaderActive(true);
+
+        Promise.all([moviesApi.getInitialCards(), getAllMovies()])
+          .then(([initialCard, savedCards]) => {
+            const formatedCards = initialCard.map((el) => {
+              const arrSaved = savedCards.filter((savedItem) => {
+                return savedItem.movieId === el.id;
+              });
+
+              const _id = arrSaved.length ? arrSaved[0]._id : false;
+
+              return formatCards(el, _id);
             });
 
-            const _id = arrSaved.length ? arrSaved[0]._id : false;
+            setAllCards(formatedCards);
 
-            return formatCards(el, _id);
+            const filteredCards = filterAll(formatedCards, context.searchInputText, context.isChecked);
+            setFiltredCards(filteredCards);
+          })
+          .catch((err) => {
+            setIsLoadError(true);
+            setFiltredCards([]);
+            console.log('err', err);
+          })
+          .finally(() => {
+            setIsPreloaderActive(false);
           });
-
-          setAllCards(formatedCards);
-
-          const filteredCards = filterAll(formatedCards, searchInputText);
-          setFiltredCards(filteredCards);
-        })
-        .catch((err) => {
-          console.log('err', err);
-        })
-        .finally(() => {
-          setIsPreloaderActive(false);
-        });
+      }
+    } else {
+      if (allCards.length) {
+        const filteredCards = filterAll(allCards, context.searchInputText, context.isChecked);
+        setFiltredCards(filteredCards);
+      }
     }
   };
 
+  const [skipRender, setSkipRender] = useState(true);
+
+  // handel inputText change and shortsCheckbox change on movies page
   useEffect(() => {
-    if (searchInputText && allCards.length) {
-      const filteredCards = filterAll(allCards, searchInputText);
-      setFiltredCards(filteredCards);
-    } else if (localStorage.getItem('searchText') || localStorage.getItem('isChecked')) {
-      const searchTextFromStorage = JSON.parse(localStorage.getItem('searchText'));
-      if (searchTextFromStorage) {
-        setSearchInputText(searchTextFromStorage);
-      }
-
-      const checkboxFromStorage = JSON.parse(localStorage.getItem('isChecked'));
-      if (checkboxFromStorage) {
-        setIsChecked(checkboxFromStorage);
-      }
-
-      const cardsFromStorage = JSON.parse(localStorage.getItem('filteredCards'));
-      if (cardsFromStorage) {
-        setFiltredCards(cardsFromStorage);
+    if (!isPageSaved && allCards.length && (context.searchInputText || context.isChecked)) {
+      if (skipRender) {
+        setSkipRender(false);
+      } else {
+        const filteredCards = filterAll(allCards, context.searchInputText, context.isChecked);
+        setFiltredCards(filteredCards);
       }
     }
-  }, [searchInputText, isChecked, allCards, filterAll, setFiltredCards]);
+  }, [context.searchInputText, context.isChecked, allCards, filterAll, setFiltredCards, isPageSaved, skipRender]);
+
+  // get data from localstorege
+  useEffect(() => {
+    if (!isPageSaved) {
+      if (localStorage.getItem('searchText')) {
+        setSearchInputText(JSON.parse(localStorage.getItem('searchText')));
+      }
+
+      if (localStorage.getItem('isChecked')) {
+        setIsChecked(JSON.parse(localStorage.getItem('isChecked')));
+      }
+
+      if (localStorage.getItem('filteredCards')) {
+        setFiltredCards(JSON.parse(localStorage.getItem('filteredCards')));
+      }
+    }
+  }, [setFiltredCards, setIsChecked, setSearchInputText, isPageSaved]);
+
+  // handel saved-movies
+
+  // get saved movies
+  const handelLoadingSavedMovies = useCallback(() => {
+    if (isPageSaved) {
+      if (allCards.length) {
+        setFiltredCards(allCards);
+        setSavedCards(allCards);
+      } else {
+        setIsPreloaderActive(true);
+        getAllMovies()
+          .then((savedCards) => {
+            setFiltredCards(savedCards);
+            setSavedCards(savedCards);
+          })
+          .catch((err) => {
+            setIsLoadError(true);
+            setFiltredCards([]);
+            console.log('err', err);
+          })
+          .finally(() => {
+            setIsPreloaderActive(false);
+          });
+      }
+    }
+  }, [allCards, isPageSaved, setFiltredCards, setIsPreloaderActive, setIsLoadError, setSavedCards]);
+
+  // first loading
+  useEffect(() => {
+    if (isPageSaved) {
+      setSearchInputText('');
+      setIsChecked(false);
+
+      handelLoadingSavedMovies();
+    }
+  }, [isPageSaved, setSearchInputText, setIsChecked, allCards, handelLoadingSavedMovies, setFiltredCards]);
+
+  //  handel inputText change and checkbox change on saved movies page
+  useEffect(() => {
+    if (isPageSaved && savedCards.length) {
+      const newFilteredCards = filterAll(savedCards, context.searchInputText, context.isChecked);
+      setFiltredCards(newFilteredCards);
+    }
+  }, [context.searchInputText, context.isChecked, allCards, filterAll, setFiltredCards, isPageSaved, savedCards]);
 
   return (
     <section className="search">
@@ -175,8 +248,8 @@ const SearchForm = () => {
             type="search"
             placeholder="Фильм"
             name="search"
-            defaultValue={searchInputText}
-            onChange={handleChange}
+            value={context.searchInputText}
+            onChange={handleChangeSearchInputText}
           />
 
           <button
@@ -194,19 +267,15 @@ const SearchForm = () => {
               type="checkbox"
               id="highload1"
               name="checkbox"
-              checked={isChecked}
-              onChange={handleCheckbox}
+              checked={context.isChecked}
+              onChange={handleChangeCheckbox}
             />
             <label htmlFor="highload1" className="search__checkbox-lable"></label>
           </div>
           <span className="search__checkbox-lable-text">Короткометражки</span>
         </div>
       </div>
-      <span
-        className={`search__forms-input-error ${
-          isSearchEmpty ? 'search__forms-input-error_active' : ''
-        }`}
-      >
+      <span className={`search__forms-input-error ${isSearchEmpty ? 'search__forms-input-error_active' : ''}`}>
         Нужно ввести ключевое слово
       </span>
       <hr className="search__wrapper-line" />

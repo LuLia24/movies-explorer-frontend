@@ -84,7 +84,11 @@ const MoviesCardList = () => {
             ? randeredCards.map((card) => {
                 return <MoviesCard key={card.movieId} card={card} isPageSaved={isPageSaved} />;
               })
-            : 'Ничего не найдено'}
+            : context.searchInputText && allCards.length
+            ? 'Ничего не найдено'
+            : context.isLoadError
+            ? 'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз'
+            : ''}
         </div>
       )}
 
