@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import './Header.css';
 import logo from '../../images/logo.svg';
 import { Link } from 'react-router-dom';
 import Navigation from '../Navigation/Navigation';
+import CurrentUserContext from '../../contexts/CurrentUserContext';
 
 const Header = () => {
-  const isLogined = true;
   const [isModalOpened, setIsModalOpened] = useState(false);
+  const context = useContext(CurrentUserContext);
+  const { isLoggined } = context;
 
   const handelModalOpen = () => {
     setIsModalOpened(true);
@@ -67,7 +69,7 @@ const Header = () => {
       <Link to="/">
         <img className="header__logo" src={logo} alt="логотип" />
       </Link>
-      {isLogined ? burger : authorization}
+      {isLoggined ? burger : authorization}
       {isModalOpened && <Navigation handelModalClose={handelModalClose} />}
     </header>
   );

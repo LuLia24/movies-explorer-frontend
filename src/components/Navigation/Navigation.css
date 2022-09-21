@@ -13,7 +13,8 @@
 .navigation__wrapper {
   position: relative;
   background-color: #ffffff;
-  height: 780px;
+  height: 100vh;
+  max-height: 780px;
   width: 320px;
   display: flex;
   flex-direction: column;
@@ -87,7 +88,7 @@
 
 @media screen and (min-width: 768px) {
   .navigation__wrapper {
-    height: 1024px;
+    max-height: 1024px;
     width: 520px;
 
     padding: 0 0 90px 0;
