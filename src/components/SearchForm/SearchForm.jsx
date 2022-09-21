@@ -54,7 +54,9 @@ const SearchForm = () => {
         description: card.description ? card.description : 'default',
         image: card.image ? `https://api.nomoreparties.co${card.image.url}` : 'default',
         trailerLink: card.trailerLink ? card.trailerLink : 'default',
-        thumbnail: card.image ? `https://api.nomoreparties.co${card.image.formats.thumbnail.url}` : 'default',
+        thumbnail: card.image
+          ? `https://api.nomoreparties.co${card.image.formats.thumbnail.url}`
+          : 'default',
         owner: currentUser._id ? currentUser._id : 'default',
         movieId: card.id ? card.id : 0,
         nameRU: card.nameRU ? card.nameRU : 'default',
@@ -62,7 +64,7 @@ const SearchForm = () => {
         _id: _id,
       };
     },
-    [currentUser._id],
+    [currentUser._id]
   );
 
   const filterText = useCallback((card, searchText) => {
@@ -111,7 +113,7 @@ const SearchForm = () => {
         return result;
       }
     },
-    [context.isChecked, filterText, isPageSaved],
+    [context.isChecked, filterText, isPageSaved]
   );
 
   // handel movies page
@@ -141,7 +143,11 @@ const SearchForm = () => {
 
             setAllCards(formatedCards);
 
-            const filteredCards = filterAll(formatedCards, context.searchInputText, context.isChecked);
+            const filteredCards = filterAll(
+              formatedCards,
+              context.searchInputText,
+              context.isChecked
+            );
             setFiltredCards(filteredCards);
           })
           .catch((err) => {
@@ -173,7 +179,15 @@ const SearchForm = () => {
         setFiltredCards(filteredCards);
       }
     }
-  }, [context.searchInputText, context.isChecked, allCards, filterAll, setFiltredCards, isPageSaved, skipRender]);
+  }, [
+    context.searchInputText,
+    context.isChecked,
+    allCards,
+    filterAll,
+    setFiltredCards,
+    isPageSaved,
+    skipRender,
+  ]);
 
   // get data from localstorege
   useEffect(() => {
@@ -188,6 +202,8 @@ const SearchForm = () => {
 
       if (localStorage.getItem('filteredCards')) {
         setFiltredCards(JSON.parse(localStorage.getItem('filteredCards')));
+      } else {
+        setFiltredCards([]);
       }
     }
   }, [setFiltredCards, setIsChecked, setSearchInputText, isPageSaved]);
@@ -227,7 +243,14 @@ const SearchForm = () => {
 
       handelLoadingSavedMovies();
     }
-  }, [isPageSaved, setSearchInputText, setIsChecked, allCards, handelLoadingSavedMovies, setFiltredCards]);
+  }, [
+    isPageSaved,
+    setSearchInputText,
+    setIsChecked,
+    allCards,
+    handelLoadingSavedMovies,
+    setFiltredCards,
+  ]);
 
   //  handel inputText change and checkbox change on saved movies page
   useEffect(() => {
@@ -235,7 +258,15 @@ const SearchForm = () => {
       const newFilteredCards = filterAll(savedCards, context.searchInputText, context.isChecked);
       setFiltredCards(newFilteredCards);
     }
-  }, [context.searchInputText, context.isChecked, allCards, filterAll, setFiltredCards, isPageSaved, savedCards]);
+  }, [
+    context.searchInputText,
+    context.isChecked,
+    allCards,
+    filterAll,
+    setFiltredCards,
+    isPageSaved,
+    savedCards,
+  ]);
 
   return (
     <section className="search">
@@ -275,7 +306,11 @@ const SearchForm = () => {
           <span className="search__checkbox-lable-text">Короткометражки</span>
         </div>
       </div>
-      <span className={`search__forms-input-error ${isSearchEmpty ? 'search__forms-input-error_active' : ''}`}>
+      <span
+        className={`search__forms-input-error ${
+          isSearchEmpty ? 'search__forms-input-error_active' : ''
+        }`}
+      >
         Нужно ввести ключевое слово
       </span>
       <hr className="search__wrapper-line" />
